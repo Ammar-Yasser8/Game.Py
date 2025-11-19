@@ -1,0 +1,1 @@
+This game challenges the user to control a character or object that moves along a square-shaped path. The purpose is to demonstrate basic directional movement logic—up, right, down, and left—in a continuous loop, helping learners understand how coordinates and step-by-step motion work in simple games or animations 

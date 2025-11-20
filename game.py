@@ -146,11 +146,50 @@ class Player(pygame.sprite.Sprite):
             
         play_shoot_sound()
 
+def create_alien_surface():
+    scale = 4
+    width = 12 * scale
+    height = 8 * scale
+    surface = pygame.Surface((width, height), pygame.SRCALPHA)
+    
+    alien_color = (50, 205, 50) # #32CD32
+    eye_color = (0, 0, 0)       # #000000
+    
+    # Format: (x, y, color, width=1)
+    pixels = [
+        # Row 0
+        (2, 0, alien_color), (9, 0, alien_color),
+        # Row 1
+        (3, 1, alien_color), (8, 1, alien_color),
+        # Row 2
+        (2, 2, alien_color, 8),
+        # Row 3
+        (1, 3, alien_color), (2, 3, alien_color),
+        (3, 3, eye_color, 2), (5, 3, alien_color, 2), (7, 3, eye_color, 2),
+        (9, 3, alien_color), (10, 3, alien_color),
+        # Row 4
+        (0, 4, alien_color, 12),
+        # Row 5
+        (0, 5, alien_color), (2, 5, alien_color, 8), (11, 5, alien_color),
+        # Row 6
+        (0, 6, alien_color), (2, 6, alien_color), (9, 6, alien_color), (11, 6, alien_color),
+        # Row 7
+        (3, 7, alien_color, 2), (7, 7, alien_color, 2)
+    ]
+    
+    for p in pixels:
+        x = p[0]
+        y = p[1]
+        color = p[2]
+        w = p[3] if len(p) > 3 else 1
+        pygame.draw.rect(surface, color, (x * scale, y * scale, w * scale, scale))
+        
+    return surface
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.Surface((40, 40))
-        self.image.fill(GREEN) # Green for Enemies
+        self.image = create_alien_surface()
         self.rect = self.image.get_rect()
         self.rect.x = random.randrange(WIDTH - self.rect.width)
         self.rect.y = random.randrange(-100, -40)
